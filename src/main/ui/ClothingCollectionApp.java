@@ -51,7 +51,7 @@ public class ClothingCollectionApp {
         }
     }
 
-    // EFFECTS: lists all clothes in a specific clothing category
+    // EFFECTS: lists num of clothes in a specific clothing category
     private void listClothingCategory() {
         int type = selectType();
         if (type == 1) {
