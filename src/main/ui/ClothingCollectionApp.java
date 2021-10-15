@@ -2,17 +2,13 @@ package ui;
 
 import model.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // Clothing Collection Application, references teller application given in CPSC 210
 public class ClothingCollectionApp {
     private Scanner input;
     private Closet closet;
-    private Tops top;
-    private Bottoms bottom;
-    private OnePiece onePiece;
-    private Shoes shoe;
-    private Accessories accessory;
 
     // EFFECTS: runs the collection application
     public ClothingCollectionApp() {
@@ -49,23 +45,63 @@ public class ClothingCollectionApp {
         } else if (command == 3) {
             listClothingCategory();
         } else if (command == 4) {
-            modifyTags();
+            addTags();
         } else {
             System.out.println("Not valid option");
         }
     }
 
+    // EFFECTS: lists all clothes in a specific clothing category
+    private void listClothingCategory() {
+        int type = selectType();
+        if (type == 1) {
+            System.out.println("Total Number of Tops: " + closet.getNumOfTops());
+        } else if (type == 2) {
+            System.out.println("Total Number of Bottoms: " + closet.getNumOfBottoms());
+        } else if (type == 3) {
+            System.out.println("Total Number of One Pieces: " + closet.getNumOfOnePieces());
+        } else if (type == 4) {
+            System.out.println("Total Number of Shoes: " + closet.getNumOfShoes());
+        } else if (type == 5) {
+            System.out.println("Total Number of Accessories: " + closet.getNumOfAccessories());
+        }
+    }
+
+    // EFFECTS: lists all clothes in the closet and total number
+    private void listClothing() {
+        ArrayList<Clothes> list = closet.getCloset();
+        for (Clothes item : list) {
+            System.out.println(item + "\n");
+        }
+        System.out.println("Total Number of Clothes: " + closet.getTotalNumOfClothes());
+    }
+
     // MODIFIES: this
     // EFFECTS: adds clothing piece to collection
     private void addClothing() {
-        Clothes type = selectType();
+        int type = selectType();
         System.out.println("Enter name of item");
         String name = input.next();
-        type = new type(name);
+        if (type == 1) {
+            Clothes top = new Tops(name);
+            closet.addClothes(top);
+        } else if (type == 2) {
+            Clothes bottom = new Bottoms(name);
+            closet.addClothes(bottom);
+        } else if (type == 3) {
+            Clothes onePiece = new OnePiece(name);
+            closet.addClothes(onePiece);
+        } else if (type == 4) {
+            Clothes shoes = new Shoes(name);
+            closet.addClothes(shoes);
+        } else if (type == 5) {
+            Clothes accessory = new Accessories(name);
+            closet.addClothes(accessory);
+        }
     }
 
     // EFFECTS: prompts user to select type of clothing and returns it
-    private Clothes selectType() {
+    private int selectType() {
         int select = 0;
         while (!(select == 1 || select == 2 || select == 3 || select == 4 || select == 5)) {
             System.out.println("1 for Tops");
@@ -75,16 +111,7 @@ public class ClothingCollectionApp {
             System.out.println("5 for Accessories");
             select = input.nextInt();
         }
-        if (select == 1) {
-            return top;
-        } else if (select == 2) {
-            return bottom;
-        } else if (select == 3) {
-            return onePiece;
-        } else if (select == 4) {
-            return shoe;
-        } else {
-            return accessory;
+        return select;
     }
 
     // MODIFIES: this

@@ -31,7 +31,7 @@ public class Closet {
      *          number of clothes is incremented
      * MODIFIES: this
      */
-    protected void addClothes(Clothes item) {
+    public void addClothes(Clothes item) {
         closet.add(item);
         switch (item.getClothingType()) {
             case "top":

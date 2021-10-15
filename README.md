@@ -10,4 +10,4 @@ As a user, I want to:
 - be able to add clothing pieces to my clothing collection
 - view a list of all the clothing I have added as well as see total number
 - be able to see total number of specific clothing types
-- be able to select specific clothing pieces, and add/delete/view tags for that piece (i.e. "formal")
+- be able to select specific clothing pieces, and add tags for that piece (i.e. "formal")
