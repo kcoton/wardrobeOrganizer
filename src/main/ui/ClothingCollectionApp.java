@@ -51,7 +51,11 @@ public class ClothingCollectionApp {
         }
     }
 
-    // EFFECTS: lists num of clothes in a specific clothing category
+    // EFFECTS: adds tags to specific clothing pieces
+    private void addTags() {
+    }
+
+    // EFFECTS: lists number of clothes in a specific clothing category
     private void listClothingCategory() {
         int type = selectType();
         if (type == 1) {
