@@ -9,4 +9,9 @@ public class Accessories extends Clothes {
     public Accessories(String name) {
         super(name);
     }
+
+    @Override
+    public String getClothingType() {
+        return "accessory";
+    }
 }

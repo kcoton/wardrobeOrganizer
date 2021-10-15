@@ -1,6 +1,9 @@
 package model;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClothesTest {
@@ -62,5 +65,18 @@ class ClothesTest {
         assertEquals(tee.getName(), "band shirt");
         assertEquals(jeans.getName(), "mom jeans");
         assertEquals(dress.getName(), "sparkly dress");
+    }
+
+    @Test
+    public void testGetTags() {
+        Clothes mittens = new Accessories("fuzzy gloves");
+        mittens.addTag("soft");
+        mittens.addTag("winter");
+        mittens.addTag("white");
+        ArrayList<String> tags = mittens.getTags();
+        assertEquals(mittens.getNumOfTags(),3);
+        assertEquals(tags.get(0),"soft");
+        assertEquals(tags.get(1),"winter");
+        assertEquals(tags.get(2),"white");
     }
 }

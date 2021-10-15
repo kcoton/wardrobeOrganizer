@@ -9,4 +9,9 @@ public class OnePiece extends Clothes {
     public OnePiece(String name) {
         super(name);
     }
+
+    @Override
+    public String getClothingType() {
+        return "one piece";
+    }
 }
