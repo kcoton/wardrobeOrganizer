@@ -11,4 +11,3 @@ As a user, I want to:
 - view a list of all the clothing I have added as well as see total number
 - view a list of a specific clothing type specified as well as see total number
 - be able to delete clothing pieces from my clothing collection
-- be able to select specific clothing pieces, and add new tags for that piece (i.e. "formal")
