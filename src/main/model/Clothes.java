@@ -1,21 +1,22 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Represents each clothing piece having a name and a list of tags associated
 public abstract class Clothes {
     private String name;
-    private List<String> tags;
-    private int totalNumOfClothes;
+    protected ArrayList<String> tags;
+    private int numOfTags;
 
     /*
      * REQUIRES: name must be non-zero length
      * EFFECTS: name on clothes is set to name
-     *          increments count for total number of clothes
      */
     public Clothes(String name) {
         this.name = name;
-        totalNumOfClothes++;
+        numOfTags = 0;
+        tags = new ArrayList<>();
     }
 
     /*
@@ -23,14 +24,18 @@ public abstract class Clothes {
      * EFFECTS: tag is added to the list of tags for the clothing if not a duplicate
      *          tagName is converted to lowercase letters to match formatting
      */
-    private void addTag(String tag) {
+    protected boolean addTag(String tag) {
         String tagName = tag.toLowerCase();
-        for (String next : tags) {
-            if (next.equals(tagName)) {
-                return;
+        if (numOfTags > 0) {
+            for (String next : tags) {
+                if (next.equals(tagName)) {
+                    return false;
+                }
             }
         }
         tags.add(tagName);
+        numOfTags++;
+        return true;
     }
 
     /*
@@ -38,14 +43,16 @@ public abstract class Clothes {
      * EFFECTS: tag is removed from list of tags if found
      *          tagName is converted to lowercase letters to match formatting
      */
-    private void deleteTag(String tag) {
+    protected boolean deleteTag(String tag) {
         String tagName = tag.toLowerCase();
         for (String next : tags) {
             if (next.equals(tagName)) {
                 tags.remove(next);
-                return;
+                numOfTags--;
+                return true;
             }
         }
+        return false;
     }
 
     // returns list of all tags for that clothing piece
@@ -53,14 +60,11 @@ public abstract class Clothes {
         return tags;
     }
 
-    // returns number of clothing pieces in that category
-    protected abstract int getNumOfClothes();
-
-    protected int getTotalNumOfClothes() {
-        return totalNumOfClothes;
-    }
-
     protected String getName() {
         return name;
+    }
+
+    protected int getNumOfTags() {
+        return numOfTags;
     }
 }
