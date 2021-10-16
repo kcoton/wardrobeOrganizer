@@ -53,6 +53,7 @@ public class ClothingCollectionApp {
 
     // EFFECTS: adds tags to specific clothing pieces
     private void addTags() {
+
     }
 
     // EFFECTS: lists number of clothes in a specific clothing category
