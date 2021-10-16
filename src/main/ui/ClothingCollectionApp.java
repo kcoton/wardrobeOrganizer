@@ -47,7 +47,7 @@ public class ClothingCollectionApp {
         } else if (command == 4) {
             addTags();
         } else {
-            System.out.println("Not valid option");
+            System.out.println("Not a valid option");
         }
     }
 
