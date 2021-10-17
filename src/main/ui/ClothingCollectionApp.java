@@ -3,7 +3,6 @@ package ui;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 // Clothing Collection Application, references teller application given in CPSC 210
