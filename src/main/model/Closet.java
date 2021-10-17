@@ -28,31 +28,31 @@ public class Closet {
     /*
      * REQUIRES: a valid clothes object, no duplicate objects
      * EFFECTS: item is added to list of closet
-     *          number of clothes is incremented
+     *          number of clothes and number of clothing type is incremented
      * MODIFIES: this
      */
     public void addClothes(Clothes item) {
         closet.add(item);
-        switch (item.getClothingType()) {
-            case "top":
+        String type = item.getClass().getName().substring(6);
+        switch (type) {
+            case "Tops":
                 numOfTops++;
                 break;
-            case "bottom":
+            case "Bottoms":
                 numOfBottoms++;
                 break;
-            case "one piece":
+            case "OnePieces":
                 numOfOnePieces++;
                 break;
-            case "shoe":
+            case "Shoes":
                 numOfShoes++;
                 break;
-            case "accessory":
+            case "Accessories":
                 numOfAccessories++;
                 break;
         }
         totalNumOfClothes++;
     }
-
 
     // returns entire closet list
     public ArrayList<Clothes> getCloset() {

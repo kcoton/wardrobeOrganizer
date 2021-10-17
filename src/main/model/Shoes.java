@@ -9,9 +9,4 @@ public class Shoes extends Clothes {
     public Shoes(String name) {
         super(name);
     }
-
-    @Override
-    public String getClothingType() {
-        return "shoe";
-    }
 }

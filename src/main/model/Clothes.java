@@ -26,7 +26,7 @@ public abstract class Clothes extends Closet {
      *          tagName is converted to lowercase letters to match formatting
      *          number of tags is incremented
      */
-    protected boolean addTag(String tag) {
+    public boolean addTag(String tag) {
         String tagName = tag.toLowerCase();
         if (numOfTags > 0) {
             for (String next : tags) {
@@ -46,7 +46,7 @@ public abstract class Clothes extends Closet {
      *          tagName is converted to lowercase letters to match formatting
      *          num of tags is decremented if found
      */
-    protected boolean deleteTag(String tag) {
+    public boolean deleteTag(String tag) {
         String tagName = tag.toLowerCase();
         for (String next : tags) {
             if (next.equals(tagName)) {
@@ -59,17 +59,15 @@ public abstract class Clothes extends Closet {
     }
 
     // returns list of all tags for that clothing piece
-    protected ArrayList<String> getTags() {
+    public ArrayList<String> getTags() {
         return tags;
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 
     protected int getNumOfTags() {
         return numOfTags;
     }
-
-    public abstract String getClothingType();
 }
