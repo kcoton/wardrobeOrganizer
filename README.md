@@ -7,7 +7,9 @@ This application is created for *personal use*, and for those who have an intere
 
 ## User Stories
 As a user, I want to:
+- *(phase 1):*
 - be able to add clothing pieces to my clothing collection
 - view a list of all the clothing I have added as well as see the total number of pieces
 - be able to see total number of pieces of specific types of clothing
 - be able to select specific clothing pieces, and add tags for that piece (i.e. "formal")
+- 

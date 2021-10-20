@@ -10,7 +10,7 @@ public abstract class Clothes extends Closet {
 
     /*
      * REQUIRES: name must be non-zero length
-     * EFFECTS: name on clothes is set to name
+     * EFFECTS: name on clothes is set to name and made lowercase
      *          tags is initialized
      *          number of tags is set to 0
      */
@@ -67,7 +67,7 @@ public abstract class Clothes extends Closet {
         return name;
     }
 
-    protected int getNumOfTags() {
+    public int getNumOfTags() {
         return numOfTags;
     }
 }

@@ -23,6 +23,8 @@ public class ClosetTest {
         closet.addClothes(shirt);
         assertEquals(closet.getTotalNumOfClothes(),1);
         assertEquals(closet.getNumOfTops(),1);
+
+        Clothes tee = new Tops("plain White TEE");
         Clothes boots = new Shoes("doc martens");
         Clothes mittens = new Accessories("fuzzy gloves");
         Clothes mittens2 = new Accessories("soft gloves");
@@ -31,6 +33,7 @@ public class ClosetTest {
         Clothes dress2 = new OnePiece("ball gown");
         Clothes dress3 = new OnePiece("prom dress");
 
+        closet.addClothes(tee);
         closet.addClothes(boots);
         closet.addClothes(mittens);
         closet.addClothes(mittens2);
@@ -38,11 +41,13 @@ public class ClosetTest {
         closet.addClothes(dress);
         closet.addClothes(dress2);
         closet.addClothes(dress3);
-        assertEquals(closet.getTotalNumOfClothes(),8);
-        assertEquals(closet.getNumOfShoes(),1);
-        assertEquals(closet.getNumOfAccessories(),2);
-        assertEquals(closet.getNumOfBottoms(),1);
-        assertEquals(closet.getNumOfOnePieces(),3);
+
+        assertEquals(closet.getNumOfTops(), 2);
+        assertEquals(closet.getNumOfShoes(), 1);
+        assertEquals(closet.getNumOfAccessories(), 2);
+        assertEquals(closet.getNumOfBottoms(), 1);
+        assertEquals(closet.getNumOfOnePieces(), 3);
+        assertEquals(closet.getTotalNumOfClothes(), 9);
     }
 
     @Test
