@@ -34,22 +34,16 @@ public class Closet {
     public void addClothes(Clothes item) {
         closet.add(item);
         String type = item.getClass().getName().substring(6);
-        switch (type) {
-            case "Tops":
-                numOfTops++;
-                break;
-            case "Bottoms":
-                numOfBottoms++;
-                break;
-            case "OnePiece":
-                numOfOnePieces++;
-                break;
-            case "Shoes":
-                numOfShoes++;
-                break;
-            case "Accessories":
-                numOfAccessories++;
-                break;
+        if (type.equals("Tops")) {
+            numOfTops++;
+        } else if (type.equals("Bottoms")) {
+            numOfBottoms++;
+        } else if (type.equals("OnePiece")) {
+            numOfOnePieces++;
+        } else if (type.equals("Shoes")) {
+            numOfShoes++;
+        } else if (type.equals("Accessories")) {
+            numOfAccessories++;
         }
         totalNumOfClothes++;
     }
