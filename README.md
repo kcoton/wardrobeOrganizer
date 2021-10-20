@@ -7,9 +7,14 @@ This application is created for *personal use*, and for those who have an intere
 
 ## User Stories
 As a user, I want to:
-- *(phase 1):*
-- be able to add clothing pieces to my clothing collection
-- view a list of all the clothing I have added as well as see the total number of pieces
-- be able to see total number of pieces of specific types of clothing
-- be able to select specific clothing pieces, and add tags for that piece (i.e. "formal")
-- 
+- *phase 1:*
+  - be able to add clothing pieces to my clothing collection
+  - view a list of all the clothing I have added as well as see the total number of pieces
+  - be able to see total number of pieces of specific types of clothing, and list them all
+  - be able to select specific clothing pieces, and add/delete/view tags for that piece (i.e. "formal")
+- *phase 2:*
+  - be able to save my list of clothing to file
+  - be able to load my list of clothing from file
+  - (to be done after)
+  - have my application give me the option to load my existing list of clothing when I start
+  - have my application give me the option to save my list of clothing when I select quit
