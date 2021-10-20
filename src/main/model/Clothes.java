@@ -15,7 +15,7 @@ public abstract class Clothes extends Closet {
      *          number of tags is set to 0
      */
     public Clothes(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
         numOfTags = 0;
         tags = new ArrayList<>();
     }

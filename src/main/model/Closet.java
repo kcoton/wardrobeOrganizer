@@ -41,7 +41,7 @@ public class Closet {
             case "Bottoms":
                 numOfBottoms++;
                 break;
-            case "OnePieces":
+            case "OnePiece":
                 numOfOnePieces++;
                 break;
             case "Shoes":
