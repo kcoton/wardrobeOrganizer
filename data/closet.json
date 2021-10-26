@@ -1,0 +1,25 @@
+{
+     "name": "Kiara's Closet",
+     "closet": [
+          {
+               "name": "tee shirt",
+               "type": "TOP",
+               "tags": ["merch"]
+          },
+          {
+               "name": "mom jeans",
+               "type": "BOTTOM",
+               "tags": ["ripped"]
+          },
+          {
+               "name": "romper",
+               "type": "ONEPIECE",
+               "tags": []
+          },
+          {
+               "name": "doc martens",
+               "type": "SHOE",
+               "tags": []
+          }
+     ]
+}

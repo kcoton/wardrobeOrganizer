@@ -8,5 +8,6 @@ public class Accessories extends Clothes {
      */
     public Accessories(String name) {
         super(name);
+        type = Type.ACCESSORY;
     }
 }

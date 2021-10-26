@@ -1,17 +1,27 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 // Clothing Collection Application, references teller application given in CPSC 210
 public class ClothingCollectionApp {
+    private static final String JSON_STORE = "./data/closet.json";
     private Scanner input;
     private Closet closet;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the collection application
-    public ClothingCollectionApp() {
+    public ClothingCollectionApp() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runCollection();
     }
 
@@ -22,6 +32,10 @@ public class ClothingCollectionApp {
         int command;
 
         init();
+        System.out.println("Enter name of closet");
+        String name = input.nextLine();
+        closet.setName(name);
+
         while (keepGoing) {
             displayMenu();
             command = input.nextInt();
@@ -54,6 +68,10 @@ public class ClothingCollectionApp {
             } else if (command == 3) {
                 deleteTags();
             }
+        } else if (command == 5) {
+            saveCloset();
+        } else if (command == 6) {
+            loadCloset();
         } else {
             System.out.println("Not a valid option");
         }
@@ -71,15 +89,9 @@ public class ClothingCollectionApp {
 
     // EFFECTS: views tags on a specific clothing piece
     private Clothes viewTags() {
-        int type = selectType();
-        String category = getCategory(type);
-        Clothes piece = selectClothing(category);
-        ArrayList<String> tags = piece.getTags();
-        System.out.println("tags: ");
-        for (String next : tags) {
-            System.out.print("#" + next + " ");
-        }
-        System.out.println();
+        Type type = selectType();
+        Clothes piece = selectClothing(type);
+        piece.printTags();
         return piece;
     }
 
@@ -96,22 +108,22 @@ public class ClothingCollectionApp {
     // EFFECTS: adds tags to a specific clothing piece
     // MODIFIES: clothes
     private void addTags() {
-        int type = selectType();
-        String category = getCategory(type);
-        Clothes piece = selectClothing(category);
+        Type type = selectType();
+        Clothes piece = selectClothing(type);
         System.out.println("Enter a tag for " + piece.getName());
         Scanner scan = new Scanner(System.in);
         String tag = scan.next();
         piece.addTag(tag);
     }
 
+    // REQUIRES: type from enum list
     // EFFECTS: returns a specific piece of clothing
-    private Clothes selectClothing(String category) {
-        ArrayList<Clothes> list = closet.getCloset();
-        ArrayList<Clothes> select = new ArrayList<>();
+    private Clothes selectClothing(Type type) {
+        List<Clothes> list = closet.getCloset();
+        List<Clothes> select = new ArrayList<>();
         int i = 0;
         for (Clothes item : list) {
-            if (item.getClass().getName().substring(6).equals(category)) {
+            if (item.getType().equals(type)) {
                 System.out.println(item.getName() + " -> enter " + i);
                 select.add(item);
                 i++;
@@ -124,41 +136,27 @@ public class ClothingCollectionApp {
 
     // EFFECTS: lists number of clothes in a specific clothing category
     private void listClothingCategory() {
-        int type = selectType();
+        Type type = selectType();
         printClothingCategoryList(type);
-        if (type == 1) {
-            System.out.println("Total Number of Tops: " + closet.getNumOfTops());
-        } else if (type == 2) {
-            System.out.println("Total Number of Bottoms: " + closet.getNumOfBottoms());
-        } else if (type == 3) {
-            System.out.println("Total Number of One Pieces: " + closet.getNumOfOnePieces());
-        } else if (type == 4) {
-            System.out.println("Total Number of Shoes: " + closet.getNumOfShoes());
-        } else if (type == 5) {
-            System.out.println("Total Number of Accessories: " + closet.getNumOfAccessories());
+        System.out.println("total number [" + type + "] : ");
+        if (type.equals(Type.TOP)) {
+            System.out.println(closet.getNumOfTops());
+        } else if (type.equals(Type.BOTTOM)) {
+            System.out.println(closet.getNumOfBottoms());
+        } else if (type.equals(Type.ONEPIECE)) {
+            System.out.println(closet.getNumOfOnePieces());
+        } else if (type.equals(Type.SHOE)) {
+            System.out.println(closet.getNumOfShoes());
+        } else if (type.equals(Type.ACCESSORY)) {
+            System.out.println(closet.getNumOfAccessories());
         }
-    }
-
-    // EFFECTS: returns the name of the clothing category
-    private String getCategory(int type) {
-        if (type == 1) {
-            return "Tops";
-        } else if (type == 2) {
-            return "Bottoms";
-        } else if (type == 3) {
-            return "OnePieces";
-        } else if (type == 4) {
-            return "Shoes";
-        }
-        return "Accessories";
     }
 
     // EFFECTS: prints all clothing in a specific category
-    private void printClothingCategoryList(int type) {
-        String category = getCategory(type);
-        ArrayList<Clothes> list = closet.getCloset();
+    private void printClothingCategoryList(Type type) {
+        List<Clothes> list = closet.getCloset();
         for (Clothes item : list) {
-            if (item.getClass().getName().substring(6).equals(category)) {
+            if (item.getType().equals(type)) {
                 System.out.println(item.getName());
             }
         }
@@ -166,53 +164,51 @@ public class ClothingCollectionApp {
 
     // EFFECTS: lists all clothes in the closet and total number
     private void listClothing() {
-        ArrayList<Clothes> list = closet.getCloset();
+        List<Clothes> list = closet.getCloset();
         for (Clothes item : list) {
-            System.out.println(item.getName() + ", Category: " + item.getClass().getName().substring(6));
+            System.out.println(item.toString());
         }
         System.out.print("-------------------------------------"
-                + "\nTotal Number of Clothes: " + closet.getTotalNumOfClothes() + "\n");
+                + "\ntotal number of clothes: " + closet.getTotalNumOfClothes() + "\n");
     }
 
     // MODIFIES: this
     // EFFECTS: adds clothing piece to collection
     private void addClothing() {
-        int type = selectType();
+        Type type = selectType();
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter name of item");
+        System.out.println("Enter item name");
         String name = "";
         name += scan.nextLine();
 
-        if (type == 1) {
+        if (type.equals(Type.TOP)) {
             Clothes top = new Tops(name);
             closet.addClothes(top);
-        } else if (type == 2) {
+        } else if (type.equals(Type.BOTTOM)) {
             Clothes bottom = new Bottoms(name);
             closet.addClothes(bottom);
-        } else if (type == 3) {
+        } else if (type.equals(Type.ONEPIECE)) {
             Clothes onePiece = new OnePiece(name);
             closet.addClothes(onePiece);
-        } else if (type == 4) {
+        } else if (type.equals(Type.SHOE)) {
             Clothes shoes = new Shoes(name);
             closet.addClothes(shoes);
-        } else if (type == 5) {
+        } else if (type.equals(Type.ACCESSORY)) {
             Clothes accessory = new Accessories(name);
             closet.addClothes(accessory);
         }
     }
 
     // EFFECTS: prompts user to select type of clothing and returns it
-    private int selectType() {
-        int select = 0;
-        while (!(select == 1 || select == 2 || select == 3 || select == 4 || select == 5)) {
-            System.out.println("1 -> tops");
-            System.out.println("2 -> bottoms");
-            System.out.println("3 -> one pieces");
-            System.out.println("4 -> shoes");
-            System.out.println("5 -> accessories");
-            select = input.nextInt();
+    private Type selectType() {
+        System.out.println("Select a category for your clothing piece");
+        int menuType = 1;
+        for (Type type : Type.values()) {
+            System.out.println(menuType + ": " + type);
+            menuType++;
         }
-        return select;
+        int select = input.nextInt();
+        return Type.values()[select - 1];
     }
 
     // MODIFIES: this
@@ -229,6 +225,31 @@ public class ClothingCollectionApp {
                 + "\n\t2 -> see list of clothing and total number of pieces"
                 + "\n\t3 -> see total number of pieces in specific category"
                 + "\n\t4 -> add/delete/view tags for specific piece of clothing"
+                + "\n\t5 -> save closet list"
+                + "\n\t6 -> load closet list"
                 + "\n\t0 -> quit");
+    }
+
+    // EFFECTS: saves closet to file
+    private void saveCloset() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(closet);
+            jsonWriter.close();
+            System.out.println("saved " + closet.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.print("error: cannot write to file " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads closet from file
+    private void loadCloset() {
+        try {
+            closet = jsonReader.read();
+            System.out.println("loaded " + closet.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("cannot read from file: " + JSON_STORE);
+        }
     }
 }

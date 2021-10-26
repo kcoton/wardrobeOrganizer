@@ -8,5 +8,6 @@ public class Bottoms extends Clothes {
      */
     public Bottoms(String name) {
         super(name);
+        type = Type.BOTTOM;
     }
 }

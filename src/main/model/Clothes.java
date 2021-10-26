@@ -1,10 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents each clothing piece having a name and a list of tags associated
-public abstract class Clothes extends Closet {
+public abstract class Clothes extends Closet implements Writable {
     private String name;
+    protected Type type;
     private ArrayList<String> tags;
     private int numOfTags;
 
@@ -15,6 +20,7 @@ public abstract class Clothes extends Closet {
      *          number of tags is set to 0
      */
     public Clothes(String name) {
+        super();
         this.name = name.toLowerCase();
         numOfTags = 0;
         tags = new ArrayList<>();
@@ -67,7 +73,41 @@ public abstract class Clothes extends Closet {
         return name;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     public int getNumOfTags() {
         return numOfTags;
+    }
+
+    // EFFECTS: returns string representation of clothing name and type
+    public String toString() {
+        return "name : " + getName() + ", type : " + getType();
+    }
+
+    // EFFECTS: prints tags associated with clothing piece
+    public void printTags() {
+        System.out.println("tags: ");
+        for (String next : tags) {
+            System.out.print("#" + next + " ");
+        }
+        System.out.println();
+    }
+
+    // EFFECTS: returns tags in clothes as a JSON array
+    private JSONArray tagsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.putAll(tags);
+        return jsonArray;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("type", type);
+        json.put("tags", tagsToJson());
+        return json;
     }
 }
