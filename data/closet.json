@@ -19,7 +19,7 @@
           {
                "name": "doc martens",
                "type": "SHOE",
-               "tags": []
+               "tags": ["casual"]
           }
      ]
 }

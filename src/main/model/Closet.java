@@ -46,7 +46,7 @@ public class Closet implements Writable {
      *          number of clothes and number of clothing type is incremented
      * MODIFIES: this
      */
-    public void addClothes(Clothes item) {
+    public Clothes addClothes(Clothes item) {
         closet.add(item);
         Type type = item.getType();
         if (type.equals(Type.TOP)) {
@@ -61,6 +61,7 @@ public class Closet implements Writable {
             numOfAccessories++;
         }
         totalNumOfClothes++;
+        return item;
     }
 
     // EFFECTS: returns an unmodifiable list of clothes in this closet

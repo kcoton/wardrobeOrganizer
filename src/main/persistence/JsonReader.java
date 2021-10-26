@@ -54,21 +54,33 @@ public class JsonReader {
     private void addPiece(Closet closet, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Type type = Type.valueOf(jsonObject.getString("type"));
+        Clothes item;
         if (type.equals(Type.TOP)) {
             Clothes top = new Tops(name);
-            closet.addClothes(top);
+            item = closet.addClothes(top);
         } else if (type.equals(Type.BOTTOM)) {
             Clothes bottom = new Bottoms(name);
-            closet.addClothes(bottom);
+            item = closet.addClothes(bottom);
         } else if (type.equals(Type.ONEPIECE)) {
             Clothes onePiece = new OnePiece(name);
-            closet.addClothes(onePiece);
+            item = closet.addClothes(onePiece);
         } else if (type.equals(Type.SHOE)) {
             Clothes shoes = new Shoes(name);
-            closet.addClothes(shoes);
+            item = closet.addClothes(shoes);
         } else {
             Clothes accessory = new Accessories(name);
-            closet.addClothes(accessory);
+            item = closet.addClothes(accessory);
+        }
+        addTags(item, jsonObject);
+    }
+
+    // MODIFIES: closet
+    // EFFECTS: parses tags from JSON object and adds them to clothing pieces
+    private void addTags(Clothes item, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("tags");
+        for (Object json : jsonArray) {
+            String nextTag = json.toString();
+            item.addTag(nextTag);
         }
     }
 
