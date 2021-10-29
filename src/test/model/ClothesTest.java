@@ -79,4 +79,10 @@ class ClothesTest {
         assertEquals(tags.get(1),"winter");
         assertEquals(tags.get(2),"white");
     }
+
+    @Test
+    public void testToString() {
+        Clothes mittens = new Accessories("fuzzy gloves");
+        assertEquals("name : fuzzy gloves, type : ACCESSORY", mittens.toString());
+    }
 }

@@ -109,8 +109,18 @@ public class ClothingCollectionApp {
     private Clothes viewTags() {
         Type type = selectType();
         Clothes piece = selectClothing(type);
-        piece.printTags();
+        printTags(piece);
         return piece;
+    }
+
+    // EFFECTS: prints tags associated with clothing piece
+    public void printTags(Clothes piece) {
+        ArrayList<String> tags = piece.getTags();
+        System.out.println("tags: ");
+        for (String next : tags) {
+            System.out.print("#" + next + " ");
+        }
+        System.out.println();
     }
 
     // EFFECTS: displays the menu option to add/delete/view tags on piece of clothing

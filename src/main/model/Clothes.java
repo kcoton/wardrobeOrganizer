@@ -86,15 +86,6 @@ public abstract class Clothes extends Closet implements Writable {
         return "name : " + getName() + ", type : " + getType();
     }
 
-    // EFFECTS: prints tags associated with clothing piece
-    public void printTags() {
-        System.out.println("tags: ");
-        for (String next : tags) {
-            System.out.print("#" + next + " ");
-        }
-        System.out.println();
-    }
-
     // EFFECTS: returns tags in clothes as a JSON array
     private JSONArray tagsToJson() {
         JSONArray jsonArray = new JSONArray();

@@ -26,6 +26,7 @@ public class JsonWriterTest extends JsonTest {
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("ioexception was expected");
+            writer.close();
         } catch (IOException e) {
             // pass
         }
@@ -53,9 +54,10 @@ public class JsonWriterTest extends JsonTest {
     void testWriterClosetNoTags() {
         try {
             closet.addClothes(new Tops("tee shirt"));
-            closet.addClothes(new Tops("band shirt"));
             closet.addClothes(new Bottoms("jeans"));
             closet.addClothes(new OnePiece("Dress"));
+            closet.addClothes(new Shoes("docs"));
+            closet.addClothes(new Accessories("NECKLACE"));
             JsonWriter writer = new JsonWriter("./data/testWriterClosetNoTags.json");
             writer.open();
             writer.write(closet);
@@ -65,11 +67,12 @@ public class JsonWriterTest extends JsonTest {
             closet = reader.read();
             assertEquals("Kiara's Closet", closet.getName());
             List<Clothes> testCloset = closet.getClothes();
-            assertEquals(4, testCloset.size());
+            assertEquals(5, testCloset.size());
             checkClothingNameType("tee shirt", Type.TOP, testCloset.get(0));
-            checkClothingNameType("band shirt", Type.TOP, testCloset.get(1));
-            checkClothingNameType("jeans", Type.BOTTOM, testCloset.get(2));
-            checkClothingNameType("dress", Type.ONEPIECE, testCloset.get(3));
+            checkClothingNameType("jeans", Type.BOTTOM, testCloset.get(1));
+            checkClothingNameType("dress", Type.ONEPIECE, testCloset.get(2));
+            checkClothingNameType("docs", Type.SHOE, testCloset.get(3));
+            checkClothingNameType("necklace", Type.ACCESSORY, testCloset.get(4));
 
             for (Clothes pieces : testCloset) {
                 ArrayList<String> testEmptyTags = pieces.getTags();

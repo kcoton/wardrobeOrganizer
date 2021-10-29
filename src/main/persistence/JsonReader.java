@@ -21,7 +21,7 @@ public class JsonReader {
     }
 
     // EFFECTS: reads closet from file and returns it
-    // throws IOException if an error occurs reading data from file
+    //          throws IOException if an error occurs reading data from file
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {

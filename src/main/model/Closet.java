@@ -87,11 +87,6 @@ public class Closet implements Writable {
         return json;
     }
 
-    // EFFECTS: returns entire (modifiable) closet list
-    private List<Clothes> getCloset() {
-        return closet;
-    }
-
     public String getName() {
         return name;
     }
