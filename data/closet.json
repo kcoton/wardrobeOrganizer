@@ -20,6 +20,11 @@
                "name": "doc martens",
                "type": "SHOE",
                "tags": ["casual"]
+          },
+          {
+               "name": "princess polly top",
+               "type": "TOP",
+               "tags": ["cottagecore"]
           }
      ]
 }

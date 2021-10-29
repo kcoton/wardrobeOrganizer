@@ -32,21 +32,39 @@ public class ClothingCollectionApp {
         int command;
 
         init();
-        System.out.println("Enter name of closet");
-        String name = input.nextLine();
-        closet.setName(name);
+        welcomeScreen();
 
         while (keepGoing) {
             displayMenu();
             command = input.nextInt();
 
             if (command == 0) {
+                System.out.println("Would you like to save your closet before quitting? Type 'Y' or 'N'");
+                String yesOrNo = input.next();
+                if (yesOrNo.equalsIgnoreCase("Y")) {
+                    saveCloset();
+                }
                 keepGoing = false;
             } else {
                 processCommand(command);
             }
         }
         System.out.println("Exiting Clothing Collection...");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: asks user to load previous closet, otherwise sets name for new closet
+    private void welcomeScreen() {
+        System.out.println("Would you like to load a previous closet? Type 'Y' or 'N'");
+        String yesOrNo = input.next();
+        if (yesOrNo.equalsIgnoreCase("Y")) {
+            loadCloset();
+            System.out.println("Welcome " + closet.getName() + "!");
+        } else {
+            System.out.println("Enter name of closet");
+            String name = input.nextLine();
+            closet.setName(name);
+        }
     }
 
     // MODIFIES: this

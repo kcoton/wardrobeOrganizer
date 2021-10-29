@@ -15,6 +15,5 @@ As a user, I want to:
 - *phase 2:*
   - be able to save my list of clothing to file
   - be able to load my list of clothing from file
-  - (to be done after)
   - have my application give me the option to load my existing list of clothing when I start
   - have my application give me the option to save my list of clothing when I select quit

@@ -1,0 +1,19 @@
+{
+  "name": "Kiara's Closet",
+  "closet": [
+    {
+      "name": "tee shirt",
+      "type": "TOP",
+      "tags": [
+        "plain",
+        "white",
+        "basics"
+      ]
+    },
+    {
+      "name": "jeans",
+      "type": "BOTTOM",
+      "tags": ["ripped"]
+    }
+  ]
+}
