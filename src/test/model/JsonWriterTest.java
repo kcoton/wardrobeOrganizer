@@ -1,8 +1,9 @@
-package persistence;
+package model;
 
-import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JsonReaderTest extends JsonTest {
-    private Closet closet;
+public class JsonWriterTest extends JsonTest {
+    Closet closet;
 
     @BeforeEach
     void runBefore() {
@@ -21,41 +22,58 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/noneExistent.json");
+    void testWriterInvalidFile() {
         try {
-            closet = reader.read();
-            fail("ioexception is expected");
+            JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
+            writer.open();
+            fail("ioexception was expected");
+            writer.close();
         } catch (IOException e) {
             // pass
         }
     }
 
     @Test
-    void testReaderEmptyCloset() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyCloset.json");
+    void testWriterEmptyCloset() {
         try {
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyCloset.json");
+            writer.open();
+            writer.write(closet);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterEmptyCloset.json");
             closet = reader.read();
             assertEquals("Kiara's Closet", closet.getName());
             assertEquals(0, closet.getTotalNumOfClothes());
         } catch (IOException e) {
-            fail("cannot read from file");
+            fail("exception should not be thrown");
         }
     }
 
     @SuppressWarnings("methodlength")
     @Test
-    void testReaderClosetNoTags() {
-        JsonReader reader = new JsonReader("./data/testWriterClosetNoTags.json");
+    void testWriterClosetNoTags() {
         try {
+            closet.addClothes(new Tops("tee shirt"));
+            closet.addClothes(new Bottoms("jeans"));
+            closet.addClothes(new OnePiece("Dress"));
+            closet.addClothes(new Shoes("docs"));
+            closet.addClothes(new Accessories("NECKLACE"));
+            JsonWriter writer = new JsonWriter("./data/testWriterClosetNoTags.json");
+            writer.open();
+            writer.write(closet);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterClosetNoTags.json");
             closet = reader.read();
             assertEquals("Kiara's Closet", closet.getName());
             List<Clothes> testCloset = closet.getClothes();
-            assertEquals(4, testCloset.size());
+            assertEquals(5, testCloset.size());
             checkClothingNameType("tee shirt", Type.TOP, testCloset.get(0));
-            checkClothingNameType("band shirt", Type.TOP, testCloset.get(1));
-            checkClothingNameType("jeans", Type.BOTTOM, testCloset.get(2));
-            checkClothingNameType("dress", Type.ONEPIECE, testCloset.get(3));
+            checkClothingNameType("jeans", Type.BOTTOM, testCloset.get(1));
+            checkClothingNameType("dress", Type.ONEPIECE, testCloset.get(2));
+            checkClothingNameType("docs", Type.SHOE, testCloset.get(3));
+            checkClothingNameType("necklace", Type.ACCESSORY, testCloset.get(4));
 
             for (Clothes pieces : testCloset) {
                 ArrayList<String> testEmptyTags = pieces.getTags();
@@ -69,8 +87,19 @@ public class JsonReaderTest extends JsonTest {
     @SuppressWarnings("methodlength")
     @Test
     void testWriterClosetHasTags() {
-        JsonReader reader = new JsonReader("./data/testWriterClosetHasTags.json");
         try {
+            Clothes tee = closet.addClothes(new Tops("tee shirt"));
+            Clothes jeans = closet.addClothes(new Bottoms("jeans"));
+            tee.addTag("plain");
+            tee.addTag("white");
+            tee.addTag("BasicS");
+            jeans.addTag("RIPPED");
+            JsonWriter writer = new JsonWriter("./data/testWriterClosetHasTags.json");
+            writer.open();
+            writer.write(closet);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterClosetHasTags.json");
             closet = reader.read();
             assertEquals("Kiara's Closet", closet.getName());
             List<Clothes> testCloset = closet.getClothes();
