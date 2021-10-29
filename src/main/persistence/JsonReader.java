@@ -39,6 +39,14 @@ public class JsonReader {
         return closet;
     }
 
+    // EFFECTS: reads closet from file and returns it
+    //          throws IOException if an error occurs reading data from file
+    public Closet read() throws IOException {
+        String jsonData = readFile(source);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseCloset(jsonObject);
+    }
+
     // MODIFIES: closet
     // EFFECTS: parses clothing from JSON object and adds them to closet
     private void addClothing(Closet closet, JSONObject jsonObject) {
@@ -82,11 +90,5 @@ public class JsonReader {
             String nextTag = json.toString();
             item.addTag(nextTag);
         }
-    }
-
-    public Closet read() throws IOException {
-        String jsonData = readFile(source);
-        JSONObject jsonObject = new JSONObject(jsonData);
-        return parseCloset(jsonObject);
     }
 }

@@ -1,12 +1,12 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // Represents the full collection of clothing items
 public class Closet implements Writable {
@@ -88,7 +88,7 @@ public class Closet implements Writable {
     }
 
     // EFFECTS: returns entire (modifiable) closet list
-    public List<Clothes> getCloset() {
+    private List<Clothes> getCloset() {
         return closet;
     }
 

@@ -119,7 +119,7 @@ public class ClothingCollectionApp {
     // REQUIRES: type from enum list
     // EFFECTS: returns a specific piece of clothing
     private Clothes selectClothing(Type type) {
-        List<Clothes> list = closet.getCloset();
+        List<Clothes> list = closet.getClothes();
         List<Clothes> select = new ArrayList<>();
         int i = 0;
         for (Clothes item : list) {
@@ -154,7 +154,7 @@ public class ClothingCollectionApp {
 
     // EFFECTS: prints all clothing in a specific category
     private void printClothingCategoryList(Type type) {
-        List<Clothes> list = closet.getCloset();
+        List<Clothes> list = closet.getClothes();
         for (Clothes item : list) {
             if (item.getType().equals(type)) {
                 System.out.println(item.getName());
@@ -164,7 +164,7 @@ public class ClothingCollectionApp {
 
     // EFFECTS: lists all clothes in the closet and total number
     private void listClothing() {
-        List<Clothes> list = closet.getCloset();
+        List<Clothes> list = closet.getClothes();
         for (Clothes item : list) {
             System.out.println(item.toString());
         }

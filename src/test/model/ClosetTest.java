@@ -60,7 +60,7 @@ public class ClosetTest {
         closet.addClothes(dress);
         closet.addClothes(dress2);
         assertEquals(closet.getTotalNumOfClothes(),3);
-        List<Clothes> list = closet.getCloset();
+        List<Clothes> list = closet.getClothes();
         assertEquals(list.get(0).getName(),"plain tee");
         assertEquals(list.get(1).getName(),"black dress");
         assertEquals(list.get(2).getName(),"ball gown");
