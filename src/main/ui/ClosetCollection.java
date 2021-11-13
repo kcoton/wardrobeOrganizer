@@ -25,7 +25,7 @@ public class ClosetCollection extends JFrame {
     public ClosetCollection() {
         super("Closet Collection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //initializeLoadingScreen();
+        initializeLoadingScreen();
         initializeFields();
         loadPreviousFile();
         //initializeGraphics();

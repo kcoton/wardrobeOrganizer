@@ -4,12 +4,17 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // Pop-up window loads previous file if user hits yes
-public class LoadWindow extends JFrame {
+public class LoadWindow extends JFrame implements ActionListener {
     private JWindow window;
+    private JFrame nameWindow;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 350;
+    private JButton buttonYes;
+    private JButton buttonNo;
 
     // EFFECTS: creates load window pop-up
     public LoadWindow() {
@@ -23,7 +28,7 @@ public class LoadWindow extends JFrame {
         setUndecorated(true);
         window.setSize(WIDTH, HEIGHT);
 
-        JPanel textPane = createTextPanel();
+        JPanel textPane = createTextPanel("Would you like to load a previous closet?", 38);
         JPanel buttonPane = createButtonPanel();
 
         JPanel mainPane = new JPanel();
@@ -37,10 +42,20 @@ public class LoadWindow extends JFrame {
         window.setVisible(true);
     }
 
-    // EFFECTS: creates yes/no buttons with styling
+    private enum Events {
+        YES, NO
+    }
+
+    // EFFECTS: creates yes/no buttons with styling and action listeners
     private JPanel createButtonPanel() {
-        JButton buttonYes = new JButton("Yes");
-        JButton buttonNo = new JButton("No");
+        buttonYes = new JButton("Yes");
+        buttonNo = new JButton("No");
+
+        buttonYes.setActionCommand(Events.YES.name());
+        buttonNo.setActionCommand(Events.NO.name());
+        buttonYes.addActionListener(this);
+        buttonNo.addActionListener(this);
+
         JPanel buttonPane = new JPanel();
         buttonYes.setFont(new Font("Bell MT", Font.BOLD, 50));
         buttonNo.setFont(new Font("Bell MT", Font.BOLD, 50));
@@ -57,20 +72,71 @@ public class LoadWindow extends JFrame {
         buttonPane.add(Box.createRigidArea(new Dimension(95,0)));
         buttonPane.add(buttonNo);
         buttonPane.setBorder(new EmptyBorder(20,0,0,0));
+
         return buttonPane;
     }
 
-    // EFFECTS: creates text asking to load previous closet with styling
-    private JPanel createTextPanel() {
-        JLabel text = new JLabel("Would you like to load a previous closet?");
-        text.setFont(new Font("Bell MT", Font.PLAIN, 38));
+    // EFFECTS: user selects no -> sets new closet name using pop-up
+    private void setNameWindow() {
+        nameWindow = new JFrame();
+        nameWindow.setSize(WIDTH, HEIGHT);
+        nameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        nameWindow.setUndecorated(true);
+
+        JPanel textPane = createTextPanel("Enter your new closet's name", 42);
+        JPanel fieldPane = createTextField();
+
+        JPanel mainPane = new JPanel();
+        mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+        mainPane.add(textPane);
+        mainPane.add(fieldPane);
+        mainPane.setBackground(Color.decode("#FFE6EE"));
+
+        nameWindow.add(mainPane);
+        nameWindow.setLocationRelativeTo(null);
+        nameWindow.setVisible(true);
+        nameWindow.toFront();
+    }
+
+    // EFFECTS: creates text field with styling
+    private JPanel createTextField() {
+        JTextField nameField = new JTextField("Kiara's Closet");
+        nameField.setEnabled(true);
+        nameField.setEditable(true);
+        nameField.setColumns(10);
+        nameField.setHorizontalAlignment(JTextField.CENTER);
+        JPanel fieldPane = new JPanel();
+        nameField.setFont(new Font("Bell MT", Font.BOLD, 50));
+        nameField.setForeground(Color.decode("#554d4f"));
+        nameField.setBorder(new BevelBorder(BevelBorder.RAISED, Color.WHITE, Color.decode("#a77782")));
+        fieldPane.setBackground(Color.decode("#FFE6EE"));
+        fieldPane.add(nameField);
+        return fieldPane;
+    }
+
+    // REQUIRES: string message, font size
+    // EFFECTS: creates text panes with styling for the panels
+    private JPanel createTextPanel(String str, int fontSize) {
+        JLabel text = new JLabel(str);
+        text.setFont(new Font("Bell MT", Font.PLAIN, fontSize));
         text.setForeground(Color.decode("#554d4f"));
-        text.setVerticalTextPosition(SwingConstants.BOTTOM);
         JPanel textPane = new JPanel();
         textPane.setBackground(Color.decode("#FFE6EE"));
         textPane.add(text);
-        textPane.setBorder(new EmptyBorder(90,0,20,0));
+        textPane.setBorder(new EmptyBorder(90, 0, 20, 0));
         textPane.setMaximumSize(new Dimension(WIDTH, 100));
         return textPane;
+    }
+
+    // EFFECTS: yes loads the previous saved json closet file, no proceeds to creating new closet
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(Events.YES.name())) {
+            System.out.println("yes");
+        } else if (e.getActionCommand().equals(Events.NO.name())) {
+            window.setVisible(false);
+            window.dispose();
+            setNameWindow();
+        }
     }
 }
