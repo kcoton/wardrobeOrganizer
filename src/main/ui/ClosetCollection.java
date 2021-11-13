@@ -7,7 +7,6 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Scanner;
 
 // Graphical user interface for the closet collection app
@@ -26,14 +25,16 @@ public class ClosetCollection extends JFrame {
     public ClosetCollection() {
         super("Closet Collection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initializeLoadingScreen();
+        //initializeLoadingScreen();
         initializeFields();
         loadPreviousFile();
         //initializeGraphics();
     }
 
+    // MODIFIES: this
+    // EFFECTS: pop-up window asks if user wants to load previous json closet file
     private void loadPreviousFile() {
-
+        LoadWindow loadWindow = new LoadWindow();
     }
 
     // MODIFIES: this
@@ -67,7 +68,7 @@ public class ClosetCollection extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: draws JFrame window where ClosetCollection operates with buttons and fields
-    private void initializeGraphics() throws MalformedURLException {
+    private void initializeGraphics() {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setLocationRelativeTo(null);

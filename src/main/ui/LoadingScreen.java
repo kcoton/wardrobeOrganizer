@@ -3,11 +3,11 @@ package ui;
 import javax.swing.*;
 import java.io.IOException;
 
-// Splash screen for when application is loading
+// Pop-up window loads splash screen for application
 public class LoadingScreen extends JFrame {
-    private final JWindow splash;
+    private JWindow splash;
 
-    // EFFECTS: creates loading screen image and sets height/width
+    // EFFECTS: initializes splash window with image and size
     public LoadingScreen() throws IOException {
         splash = new JWindow();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
