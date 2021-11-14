@@ -25,16 +25,40 @@ public class ClosetCollection extends JFrame {
     public ClosetCollection() {
         super("Closet Collection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initializeLoadingScreen();
+        //initializeLoadingScreen();
         initializeFields();
-        loadPreviousFile();
+        initializeLoadWindow();
         //initializeGraphics();
     }
 
     // MODIFIES: this
     // EFFECTS: pop-up window asks if user wants to load previous json closet file
-    private void loadPreviousFile() {
+    private void initializeLoadWindow() {
         LoadWindow loadWindow = new LoadWindow();
+        while (true) {
+            boolean isFileLoaded = loadWindow.getIsFileLoaded();
+            System.out.print(""); // loop doesn't stop unless this is in it?
+            if (isFileLoaded) { // yes to load previous file
+                loadCloset();
+                break;
+            } else if (!loadWindow.getName().isEmpty()) { // no to load previous file
+                closet = new Closet();
+                closet.setName(loadWindow.getName());
+                System.out.println("Welcome " + closet.getName() + "!");
+                break;
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads closet from file
+    private void loadCloset() {
+        try {
+            closet = jsonReader.read();
+            System.out.println("loaded " + closet.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("cannot read from file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
@@ -60,7 +84,6 @@ public class ClosetCollection extends JFrame {
     // MODIFIES: this
     // EFFECTS: initializes closet, scanner, reader/writer
     private void initializeFields() {
-        closet = new Closet();
         input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);

@@ -15,6 +15,9 @@ public class LoadWindow extends JFrame implements ActionListener {
     private static final int HEIGHT = 350;
     private JButton buttonYes;
     private JButton buttonNo;
+    private boolean isFileLoaded;
+    private String name = "";
+    private JTextField nameField;
 
     // EFFECTS: creates load window pop-up
     public LoadWindow() {
@@ -40,6 +43,11 @@ public class LoadWindow extends JFrame implements ActionListener {
         window.add(mainPane);
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     private enum Events {
@@ -98,9 +106,9 @@ public class LoadWindow extends JFrame implements ActionListener {
         nameWindow.toFront();
     }
 
-    // EFFECTS: creates text field with styling
+    // EFFECTS: creates text field with styling and listener to get name
     private JPanel createTextField() {
-        JTextField nameField = new JTextField("Kiara's Closet");
+        nameField = new JTextField("Kiara's Closet");
         nameField.setEnabled(true);
         nameField.setEditable(true);
         nameField.setColumns(10);
@@ -111,6 +119,17 @@ public class LoadWindow extends JFrame implements ActionListener {
         nameField.setBorder(new BevelBorder(BevelBorder.RAISED, Color.WHITE, Color.decode("#a77782")));
         fieldPane.setBackground(Color.decode("#FFE6EE"));
         fieldPane.add(nameField);
+
+        Action action = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                name = nameField.getText();
+                nameWindow.dispose();
+            }
+        };
+
+        nameField.addActionListener(action);
+
         return fieldPane;
     }
 
@@ -132,11 +151,16 @@ public class LoadWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Events.YES.name())) {
-            System.out.println("yes");
+            isFileLoaded = true;
         } else if (e.getActionCommand().equals(Events.NO.name())) {
-            window.setVisible(false);
-            window.dispose();
+            isFileLoaded = false;
             setNameWindow();
         }
+        window.setVisible(false);
+        window.dispose();
+    }
+
+    public boolean getIsFileLoaded() {
+        return isFileLoaded;
     }
 }
