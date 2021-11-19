@@ -6,7 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-// Frame loads main welcome window with closet options
+// Frame create and loads main welcome window with closet options
 public class WelcomeWindow {
     private JFrame window;
     private static final int WIDTH = 1200;
@@ -112,5 +112,13 @@ public class WelcomeWindow {
         button.setBorder(new BevelBorder(BevelBorder.RAISED, Color.WHITE, Color.decode("#a77782")));
         button.setContentAreaFilled(false);
         button.setPreferredSize(new Dimension(width,height));
+    }
+
+    public JButton getViewClosetButton() {
+        return viewClosetButton;
+    }
+
+    public JButton getViewOutfitsButton() {
+        return viewOutfitsButton;
     }
 }

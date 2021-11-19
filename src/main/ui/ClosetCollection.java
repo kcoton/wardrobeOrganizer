@@ -5,12 +5,17 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 // Graphical user interface for the closet collection app
 // References CPSC 210 examples: SimpleDrawingPlayer and SpaceInvaders
-public class ClosetCollection extends JFrame {
+public class ClosetCollection extends JFrame implements ActionListener {
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 700;
     private static final String JSON_STORE = "./data/closet.json";
@@ -19,12 +24,13 @@ public class ClosetCollection extends JFrame {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private LoadingScreen loadingScreen;
+    private JFrame welcomeScreen;
+    private JWindow saveWindow;
 
     // EFFECTS: initializes GUI panels and required handlers
     public ClosetCollection() {
         super("Closet Collection");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initializeLoadingScreen();
+        //initializeLoadingScreen();
         initializeFields();
         initializeLoadWindow();
         initializeWelcomeScreen();
@@ -34,10 +40,62 @@ public class ClosetCollection extends JFrame {
     // EFFECTS: main frame window that shows welcome screen with options
     private void initializeWelcomeScreen() {
         WelcomeWindow welcomeWindow = new WelcomeWindow(closet.getName());
-        JFrame welcomeScreen = welcomeWindow.createGUI();
-        welcomeScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        welcomeScreen = welcomeWindow.createGUI();
         welcomeScreen.setLocationRelativeTo(null);
         welcomeScreen.setVisible(true);
+        welcomeScreen.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        welcomeScreen.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                initializeSaveWindow();
+            }
+        });
+
+        JButton viewCloset = welcomeWindow.getViewClosetButton();
+        JButton viewOutfits = welcomeWindow.getViewOutfitsButton();
+        viewCloset.setActionCommand("viewCloset");
+        viewOutfits.setActionCommand("viewOutfits");
+        viewCloset.addActionListener(this);
+        viewOutfits.addActionListener(this); // not implemented yet
+    }
+
+    // EFFECTS: pop-up window asks if user wants to save current json closet file
+    private void initializeSaveWindow() {
+        SaveWindow saveFrame = new SaveWindow();
+        saveWindow = saveFrame.createGUI();
+        saveWindow.setLocationRelativeTo(null);
+        saveWindow.setVisible(true);
+
+        JButton yes = saveFrame.getButtonYes();
+        JButton no = saveFrame.getButtonNo();
+        yes.setActionCommand("yesSave");
+        no.setActionCommand("noSave");
+        yes.addActionListener(this);
+        no.addActionListener(this);
+    }
+
+    // EFFECTS: action listener for events
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        if (command.equals("viewCloset")) {
+            welcomeScreen.setVisible(false);
+            initializeClosetCollection();
+        } else if (command.equals("viewOutfits")) {
+            System.out.println("tba");
+        } else if (command.equals("yesSave")) {
+            saveCloset();
+            System.exit(0);
+        } else if (command.equals("noSave")) {
+            System.out.println("no save");
+            System.exit(0);
+        }
+    }
+
+    // EFFECTS: hides welcome window and switches to overview of closet
+    private void initializeClosetCollection() {
+
     }
 
     // MODIFIES: this
@@ -56,6 +114,18 @@ public class ClosetCollection extends JFrame {
                 System.out.println("Welcome " + closet.getName() + "!");
                 break;
             }
+        }
+    }
+
+    // EFFECTS: saves closet to file
+    private void saveCloset() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(closet);
+            jsonWriter.close();
+            System.out.println("saved " + closet.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.print("error: cannot write to file " + JSON_STORE);
         }
     }
 
