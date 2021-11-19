@@ -5,7 +5,6 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -25,10 +24,20 @@ public class ClosetCollection extends JFrame {
     public ClosetCollection() {
         super("Closet Collection");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //initializeLoadingScreen();
+        initializeLoadingScreen();
         initializeFields();
         initializeLoadWindow();
-        //initializeGraphics();
+        initializeWelcomeScreen();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: main frame window that shows welcome screen with options
+    private void initializeWelcomeScreen() {
+        WelcomeWindow welcomeWindow = new WelcomeWindow(closet.getName());
+        JFrame welcomeScreen = welcomeWindow.createGUI();
+        welcomeScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        welcomeScreen.setLocationRelativeTo(null);
+        welcomeScreen.setVisible(true);
     }
 
     // MODIFIES: this
@@ -87,14 +96,5 @@ public class ClosetCollection extends JFrame {
         input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: draws JFrame window where ClosetCollection operates with buttons and fields
-    private void initializeGraphics() {
-        setLayout(new BorderLayout());
-        setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 }

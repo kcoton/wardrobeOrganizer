@@ -124,6 +124,8 @@ public class LoadWindow extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 name = nameField.getText();
+                nameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                nameWindow.setVisible(false);
                 nameWindow.dispose();
             }
         };
