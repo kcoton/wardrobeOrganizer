@@ -63,6 +63,8 @@ public class SaveWindow extends JFrame {
         buttonPane.add(buttonNo);
         buttonPane.setBorder(new EmptyBorder(20,0,0,0));
 
+        buttonYes.setActionCommand("yesSave");
+        buttonNo.setActionCommand("noSave");
         return buttonPane;
     }
 

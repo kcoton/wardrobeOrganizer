@@ -15,6 +15,7 @@ public class WelcomeWindow {
     private JButton viewClosetButton;
     private JButton viewOutfitsButton;
 
+    // REQUIRES: non-null string
     // EFFECTS: creates the GUI for the welcome window and sets the closet name
     public WelcomeWindow(String closetName) {
         this.closetName = closetName;
@@ -102,6 +103,8 @@ public class WelcomeWindow {
         buttonPane.setBorder(new EmptyBorder(20,0,0,0));
         buttonPane.setMaximumSize(new Dimension(WIDTH, 50));
 
+        viewClosetButton.setActionCommand("viewCloset");
+        viewOutfitsButton.setActionCommand("viewOutfits");
         return buttonPane;
     }
 

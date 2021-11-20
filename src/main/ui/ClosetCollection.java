@@ -1,6 +1,7 @@
 package ui;
 
 import model.Closet;
+import model.Clothes;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -11,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 // Graphical user interface for the closet collection app
@@ -21,11 +23,14 @@ public class ClosetCollection extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/closet.json";
     private Scanner input;
     private Closet closet;
+    String name;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private LoadingScreen loadingScreen;
     private JFrame welcomeScreen;
     private JWindow saveWindow;
+    private JFrame closetScreen;
+    private ClosetOverview closetOverview;
 
     // EFFECTS: initializes GUI panels and required handlers
     public ClosetCollection() {
@@ -51,11 +56,8 @@ public class ClosetCollection extends JFrame implements ActionListener {
                 initializeSaveWindow();
             }
         });
-
         JButton viewCloset = welcomeWindow.getViewClosetButton();
         JButton viewOutfits = welcomeWindow.getViewOutfitsButton();
-        viewCloset.setActionCommand("viewCloset");
-        viewOutfits.setActionCommand("viewOutfits");
         viewCloset.addActionListener(this);
         viewOutfits.addActionListener(this); // not implemented yet
     }
@@ -66,11 +68,8 @@ public class ClosetCollection extends JFrame implements ActionListener {
         saveWindow = saveFrame.createGUI();
         saveWindow.setLocationRelativeTo(null);
         saveWindow.setVisible(true);
-
         JButton yes = saveFrame.getButtonYes();
         JButton no = saveFrame.getButtonNo();
-        yes.setActionCommand("yesSave");
-        no.setActionCommand("noSave");
         yes.addActionListener(this);
         no.addActionListener(this);
     }
@@ -95,7 +94,30 @@ public class ClosetCollection extends JFrame implements ActionListener {
 
     // EFFECTS: hides welcome window and switches to overview of closet
     private void initializeClosetCollection() {
+        closetOverview = new ClosetOverview(closet.getName());
+        closetScreen = closetOverview.createGUI();
+        closetScreen.setLocationRelativeTo(null);
+        closetScreen.setVisible(true);
+        closetScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        closetScreen.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                welcomeScreen.setVisible(true);
+            }
+        });
 
+        if (closet.getClothes().size() > 0) {
+            initializeClothes();
+        }
+    }
+
+    // EFFECTS: if previous closet loaded, loads items into ui
+    private void initializeClothes() {
+        List<Clothes> list = closet.getClothes();
+        for (Clothes item : list) {
+            closetOverview.addItemPane(item.getName());
+        }
     }
 
     // MODIFIES: this
