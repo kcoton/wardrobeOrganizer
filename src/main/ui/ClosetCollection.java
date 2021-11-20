@@ -76,6 +76,7 @@ public class ClosetCollection extends JFrame implements ActionListener {
     }
 
     // EFFECTS: action listener for events
+    @SuppressWarnings("methodlength")
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
