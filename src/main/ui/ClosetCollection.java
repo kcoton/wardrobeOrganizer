@@ -36,7 +36,7 @@ public class ClosetCollection extends JFrame implements ActionListener {
     // EFFECTS: initializes GUI panels and required handlers
     public ClosetCollection() {
         super("Closet Collection");
-        //initializeLoadingScreen();
+        initializeLoadingScreen();
         initializeFields();
         initializeLoadWindow();
         initializeWelcomeScreen();
