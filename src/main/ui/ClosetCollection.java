@@ -1,7 +1,6 @@
 package ui;
 
-import model.Closet;
-import model.Clothes;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -31,6 +30,8 @@ public class ClosetCollection extends JFrame implements ActionListener {
     private JWindow saveWindow;
     private JFrame closetScreen;
     private ClosetOverview closetOverview;
+    private JFrame addClothingScreen;
+    private AddClothingWindow addClothingWindow;
 
     // EFFECTS: initializes GUI panels and required handlers
     public ClosetCollection() {
@@ -89,7 +90,54 @@ public class ClosetCollection extends JFrame implements ActionListener {
         } else if (command.equals("noSave")) {
             System.out.println("no save");
             System.exit(0);
+        } else if (command.equals("addItem")) {
+            closetScreen.dispose();
+            initializeAddClothingWindow();
+        } else if (command.equals("doneAdd")) {
+            JTextField nameField = addClothingWindow.getNameField();
+            String itemName = nameField.getText();
+            JTextField typeField = addClothingWindow.getTypeField();
+            String type = typeField.getText().toUpperCase();
+
+            addClothing(itemName,type);
+
+            addClothingWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            addClothingWindow.dispose();
+            System.out.println("added");
+            initializeClosetCollection();
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds clothing piece to collection
+    private void addClothing(String itemName, String type) {
+        if (type.equals("TOP")) {
+            Clothes top = new Tops(itemName);
+            closet.addClothes(top);
+        } else if (type.equals("BOTTOM")) {
+            Clothes bottom = new Bottoms(itemName);
+            closet.addClothes(bottom);
+        } else if (type.equals("ONEPIECE")) {
+            Clothes onePiece = new OnePiece(itemName);
+            closet.addClothes(onePiece);
+        } else if (type.equals("SHOE")) {
+            Clothes shoes = new Shoes(itemName);
+            closet.addClothes(shoes);
+        } else if (type.equals("ACCESSORY")) {
+            Clothes accessory = new Accessories(itemName);
+            closet.addClothes(accessory);
+        }
+    }
+
+    // EFFECTS: add window opens for user to add clothing piece
+    private void initializeAddClothingWindow() {
+        addClothingWindow = new AddClothingWindow();
+        addClothingScreen = addClothingWindow.createGUI();
+        addClothingScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addClothingScreen.setLocationRelativeTo(null);
+        addClothingScreen.setVisible(true);
+        JButton buttonAdd = addClothingWindow.getButtonAdd();
+        buttonAdd.addActionListener(this);
     }
 
     // EFFECTS: hides welcome window and switches to overview of closet
@@ -110,6 +158,9 @@ public class ClosetCollection extends JFrame implements ActionListener {
         if (closet.getClothes().size() > 0) {
             initializeClothes();
         }
+
+        JButton addButton = closetOverview.getAddButton();
+        addButton.addActionListener(this);
     }
 
     // EFFECTS: if previous closet loaded, loads items into ui

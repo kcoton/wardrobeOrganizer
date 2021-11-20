@@ -183,6 +183,7 @@ public class ClosetOverview {
         buttonPane.add(statButton);
         buttonPane.setBorder(new EmptyBorder(30,40,0,0));
         addButton.setActionCommand("addItem");
+        statButton.setActionCommand("getStat");
         return buttonPane;
     }
 
@@ -196,7 +197,7 @@ public class ClosetOverview {
     }
 
     public JButton getAddButton() {
-        return getAddButton();
+        return addButton;
     }
 
     public Container getClothingPane() {
