@@ -74,6 +74,12 @@ public class ClosetCollection extends JFrame implements ActionListener {
         no.addActionListener(this);
     }
 
+    private void printEvents() {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println(event);
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: action listener for events
     @SuppressWarnings("methodlength")
@@ -87,9 +93,11 @@ public class ClosetCollection extends JFrame implements ActionListener {
             System.out.println("tba");
         } else if (command.equals("yesSave")) {
             saveCloset();
+            printEvents();
             System.exit(0);
         } else if (command.equals("noSave")) {
             System.out.println("no save");
+            printEvents();
             System.exit(0);
         } else if (command.equals("addItem")) {
             closetScreen.dispose();

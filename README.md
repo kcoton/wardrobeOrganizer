@@ -17,3 +17,21 @@ As a user, I want to:
   - be able to load my list of clothing from file
   - have my application give me the option to load my existing list of clothing when I start
   - have my application give me the option to save my list of clothing when I select quit
+- *phase 4: task 2*
+  - console event log:
+    ```
+    Fri Nov 26 14:28:34 PST 2021
+    vessi shoes (SHOE) has been added to closet.
+    Fri Nov 26 14:28:34 PST 2021
+    white skirt (BOTTOM) has been added to closet.
+    Fri Nov 26 14:28:34 PST 2021
+    pink cardigan (TOP) has been added to closet.
+    Fri Nov 26 14:28:34 PST 2021
+    light blue mask (ACCESSORY) has been added to closet.
+    Fri Nov 26 14:28:34 PST 2021
+    fll white top (TOP) has been added to closet.
+    Fri Nov 26 14:28:34 PST 2021
+    assc hoodie (TOP) has been added to closet.
+    Fri Nov 26 14:28:36 PST 2021
+    Closet (Kiara's Closet) has been cleared.
+    ```

@@ -61,6 +61,7 @@ public class Closet implements Writable {
             numOfAccessories++;
         }
         totalNumOfClothes++;
+        EventLog.getInstance().logEvent(new Event(item.getName() + " (" + type + ") has been added to closet."));
         return item;
     }
 
@@ -74,6 +75,7 @@ public class Closet implements Writable {
         numOfOnePieces = 0;
         numOfShoes = 0;
         numOfAccessories = 0;
+        EventLog.getInstance().logEvent(new Event("Closet (" + name + ") has been cleared."));
     }
 
     // EFFECTS: returns an unmodifiable list of clothes in this closet

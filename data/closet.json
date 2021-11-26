@@ -2,47 +2,32 @@
      "name": "Kiara's Closet",
      "closet": [
           {
-               "name": "black dress",
-               "type": "TOP",
+               "name": "vessi shoes",
+               "type": "SHOE",
                "tags": []
           },
           {
-               "name": "black dress",
-               "type": "TOP",
-               "tags": []
-          },
-          {
-               "name": "black dress",
-               "type": "TOP",
-               "tags": []
-          },
-          {
-               "name": "black dress",
-               "type": "TOP",
-               "tags": []
-          },
-          {
-               "name": "black dress",
-               "type": "TOP",
-               "tags": []
-          },
-          {
-               "name": "black dress",
-               "type": "TOP",
-               "tags": []
-          },
-          {
-               "name": "black dress",
-               "type": "TOP",
-               "tags": []
-          },
-          {
-               "name": "jeans",
+               "name": "white skirt",
                "type": "BOTTOM",
                "tags": []
           },
           {
-               "name": "black dress",
+               "name": "pink cardigan",
+               "type": "TOP",
+               "tags": []
+          },
+          {
+               "name": "light blue mask",
+               "type": "ACCESSORY",
+               "tags": []
+          },
+          {
+               "name": "fll white top",
+               "type": "TOP",
+               "tags": []
+          },
+          {
+               "name": "assc hoodie",
                "type": "TOP",
                "tags": []
           }
