@@ -26,7 +26,6 @@ public class ClosetCollection extends JFrame implements ActionListener {
     private JsonReader jsonReader;
     private LoadingScreen loadingScreen;
     private JFrame welcomeScreen;
-    private JWindow saveWindow;
     private JFrame closetScreen;
     private ClosetOverview closetOverview;
     private JFrame addClothingScreen;
@@ -65,7 +64,7 @@ public class ClosetCollection extends JFrame implements ActionListener {
     // EFFECTS: pop-up window asks if user wants to save current json closet file
     private void initializeSaveWindow() {
         SaveWindow saveFrame = new SaveWindow();
-        saveWindow = saveFrame.createGUI();
+        JWindow saveWindow = saveFrame.createGUI();
         saveWindow.setLocationRelativeTo(null);
         saveWindow.setVisible(true);
         JButton yes = saveFrame.getButtonYes();

@@ -7,7 +7,7 @@ import persistence.Writable;
 import java.util.ArrayList;
 
 // Represents each clothing piece having a name and a list of tags associated
-public abstract class Clothes extends Closet implements Writable {
+public abstract class Clothes implements Writable {
     private String name;
     protected Type type;
     private ArrayList<String> tags;

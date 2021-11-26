@@ -6,7 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-// Frame create and loads main overview of the closet with all clothing added
+// Frame creates and loads main overview of the closet with all clothing added
 public class ClosetOverview {
     private JFrame window;
     private static final int WIDTH = 1200;

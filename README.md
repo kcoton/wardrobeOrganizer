@@ -35,3 +35,12 @@ As a user, I want to:
     Fri Nov 26 14:28:36 PST 2021
     Closet (Kiara's Closet) has been cleared.
     ```
+- *phase 4: task 3*
+  - I would overhaul the GUI classes I created:
+    - each window/frame I made a whole new class file, instead I would create an 
+      interface to make different parts of the GUI that would just return components
+    - this way, I could cut down on the amount of code I repeated for the GUI styling
+    - this would also keep the same font/colors/icon/formatting for everything created as well
+  - I would keep change the action listeners to all be in the main ClosetCollection file, OR
+    I would create a separate class just for the action listeners and events that are called
+    (not sure if this is possible or how to do this)

@@ -30,6 +30,11 @@
                "name": "assc hoodie",
                "type": "TOP",
                "tags": []
+          },
+          {
+               "name": "windsor smith shoes",
+               "type": "SHOE",
+               "tags": []
           }
      ]
 }

@@ -6,7 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-// Frame create and loads main welcome window with closet options
+// Frame creates and loads main welcome window with closet options
 public class WelcomeWindow {
     private JFrame window;
     private static final int WIDTH = 1200;
