@@ -65,4 +65,17 @@ public class ClosetTest {
         assertEquals(list.get(1).getName(),"black dress");
         assertEquals(list.get(2).getName(),"ball gown");
     }
+
+    @Test
+    public void testClearCloset() {
+        assertEquals(closet.getTotalNumOfClothes(),0);
+        Clothes dress = new OnePiece("black dress");
+        Clothes dress2 = new OnePiece("ball gown");
+        closet.addClothes(shirt);
+        closet.addClothes(dress);
+        closet.addClothes(dress2);
+        assertEquals(closet.getTotalNumOfClothes(),3);
+        closet.clearCloset();
+        assertEquals(closet.getTotalNumOfClothes(),0);
+    }
 }

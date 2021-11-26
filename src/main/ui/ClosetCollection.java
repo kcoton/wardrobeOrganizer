@@ -22,7 +22,6 @@ public class ClosetCollection extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/closet.json";
     private Scanner input;
     private Closet closet;
-    String name;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private LoadingScreen loadingScreen;
@@ -75,6 +74,7 @@ public class ClosetCollection extends JFrame implements ActionListener {
         no.addActionListener(this);
     }
 
+    // MODIFIES: this
     // EFFECTS: action listener for events
     @SuppressWarnings("methodlength")
     @Override
@@ -104,7 +104,13 @@ public class ClosetCollection extends JFrame implements ActionListener {
 
             addClothingWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             addClothingWindow.dispose();
+            addClothingScreen.dispose();
             System.out.println("added");
+            initializeClosetCollection();
+        } else if (command.equals("clearCloset")) {
+            closet.clearCloset();
+            System.out.println("cleared");
+            closetScreen.dispose();
             initializeClosetCollection();
         }
     }
@@ -161,7 +167,9 @@ public class ClosetCollection extends JFrame implements ActionListener {
         }
 
         JButton addButton = closetOverview.getAddButton();
+        JButton clearButton = closetOverview.getClearButton();
         addButton.addActionListener(this);
+        clearButton.addActionListener(this);
     }
 
     // EFFECTS: if previous closet loaded, loads items into ui

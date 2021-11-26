@@ -64,6 +64,18 @@ public class Closet implements Writable {
         return item;
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes all items from closet
+    public void clearCloset() {
+        closet.clear();
+        totalNumOfClothes = 0;
+        numOfTops = 0;
+        numOfBottoms = 0;
+        numOfOnePieces = 0;
+        numOfShoes = 0;
+        numOfAccessories = 0;
+    }
+
     // EFFECTS: returns an unmodifiable list of clothes in this closet
     public List<Clothes> getClothes() {
         return Collections.unmodifiableList(closet);

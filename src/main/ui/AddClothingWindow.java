@@ -14,7 +14,7 @@ public class AddClothingWindow extends JFrame {
     private JTextField nameField;
     private JTextField typeField;
 
-    // EFFECTS: creates and returns GUI for the window asking if user wants to save file
+    // EFFECTS: creates and returns GUI for the window
     public JFrame createGUI() {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

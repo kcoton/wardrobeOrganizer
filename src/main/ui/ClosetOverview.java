@@ -13,7 +13,7 @@ public class ClosetOverview {
     private static final int HEIGHT = 900;
     private String closetName;
     private JButton addButton;
-    private JButton statButton;
+    private JButton clearButton;
     private Container clothingPane;
     private Container filterPane;
     private JCheckBox top;
@@ -85,6 +85,8 @@ public class ClosetOverview {
     public void addItemPane(String name) {
         JPanel itemLabel = createItemLabel(name, 35, Font.PLAIN);
         clothingPane.add(itemLabel);
+        clothingPane.revalidate();
+        clothingPane.repaint();
     }
 
     // REQUIRES: string message, font size, font style
@@ -172,18 +174,18 @@ public class ClosetOverview {
     // EFFECTS: creates yes/no buttons with styling and action listeners
     private JPanel createButtonPanel() {
         addButton = new JButton("(+) Add Item");
-        statButton = new JButton("(?) Statistics");
+        clearButton = new JButton("(-) Clear Closet");
         GridLayout gridLayout = new GridLayout(0,1,0,10);
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(gridLayout);
         styleButtons(addButton, Font.BOLD, 40, 300, 75);
-        styleButtons(statButton, Font.BOLD, 40, 320, 75);
+        styleButtons(clearButton, Font.BOLD, 40, 320, 75);
         buttonPane.setBackground(Color.decode("#FFE6EE"));
         buttonPane.add(addButton);
-        buttonPane.add(statButton);
+        buttonPane.add(clearButton);
         buttonPane.setBorder(new EmptyBorder(30,40,0,0));
         addButton.setActionCommand("addItem");
-        statButton.setActionCommand("getStat");
+        clearButton.setActionCommand("clearCloset");
         return buttonPane;
     }
 
@@ -198,6 +200,10 @@ public class ClosetOverview {
 
     public JButton getAddButton() {
         return addButton;
+    }
+
+    public JButton getClearButton() {
+        return clearButton;
     }
 
     public Container getClothingPane() {

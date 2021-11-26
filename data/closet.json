@@ -2,29 +2,49 @@
      "name": "Kiara's Closet",
      "closet": [
           {
-               "name": "tee shirt",
+               "name": "black dress",
                "type": "TOP",
-               "tags": ["merch"]
-          },
-          {
-               "name": "mom jeans",
-               "type": "BOTTOM",
-               "tags": ["ripped"]
-          },
-          {
-               "name": "romper",
-               "type": "ONEPIECE",
                "tags": []
           },
           {
-               "name": "doc martens",
-               "type": "SHOE",
-               "tags": ["casual"]
+               "name": "black dress",
+               "type": "TOP",
+               "tags": []
           },
           {
-               "name": "princess polly top",
+               "name": "black dress",
                "type": "TOP",
-               "tags": ["cottagecore"]
+               "tags": []
+          },
+          {
+               "name": "black dress",
+               "type": "TOP",
+               "tags": []
+          },
+          {
+               "name": "black dress",
+               "type": "TOP",
+               "tags": []
+          },
+          {
+               "name": "black dress",
+               "type": "TOP",
+               "tags": []
+          },
+          {
+               "name": "black dress",
+               "type": "TOP",
+               "tags": []
+          },
+          {
+               "name": "jeans",
+               "type": "BOTTOM",
+               "tags": []
+          },
+          {
+               "name": "black dress",
+               "type": "TOP",
+               "tags": []
           }
      ]
 }
