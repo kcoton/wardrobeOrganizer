@@ -139,7 +139,7 @@ public class ClosetCollection extends JFrame implements ActionListener {
             closet.addClothes(shoes);
         } else if (type.equals("ACCESSORY")) {
             Clothes accessory = new Accessories(itemName);
-            closet.addClothes(accessory); //
+            closet.addClothes(accessory);
         }
     }
 
