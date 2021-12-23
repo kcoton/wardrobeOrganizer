@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+//
 // Graphical user interface for the closet collection app
 // References CPSC 210 examples: SimpleDrawingPlayer and SpaceInvaders
 public class ClosetCollection extends JFrame implements ActionListener {
